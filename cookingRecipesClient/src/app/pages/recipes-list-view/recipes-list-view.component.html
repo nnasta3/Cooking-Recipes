@@ -1,0 +1,44 @@
+<div>
+    <mat-toolbar class="toolbar" color="primary"><a [routerLink]="['']" class="title">Cooking Recipes.com</a></mat-toolbar>
+</div>
+
+<div id="searchBarDiv"  class="container" fxLayout="row"
+     fxLayout.xs="column"
+     fxLayout.sm="column"
+     fxLayout.md="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="20px"
+     fxLayoutGap.xs="0">
+    <div >
+            <mat-form-field class="searchForm" >
+                <mat-label>Search for a recipe</mat-label>
+                <input matInput placeholder="Ex. Pizza" formControlName="search">
+            </mat-form-field>
+    </div>
+
+    <div class="searchButtonDiv">
+        <button mat-raised-button color="primary" class="searchButton" (click)="searchQuery(search.value)">Search</button>
+    </div>
+</div>
+
+
+<div fxLayout="row wrap" class="recipeBoxList" fxLayoutGap="10px grid">
+    <div class="recipeBox" fxFlex="1 0 auto" *ngFor="let recipe of recipes" style="width:340px; height:400px;">
+        <mat-card class="recipeImage" routerLink="/recipe/{{recipe.name}}" routerLinkActive="active" (click)="onSelect(recipe)" [class.selected]="recipe === selectedRecipe" >
+            
+            <mat-card-header>
+                <mat-card-title class="recipeBoxContent">{{recipe.name}}</mat-card-title>
+            </mat-card-header>
+
+            <img  mat-card-image src="https://assets.bonappetit.com/photos/57ace84d53e63daf11a4db61/master/pass/SCRAMBLED-EGG-1-of-1.jpg" alt="Photo of a Shiba Inu">
+
+            <mat-card-content class="recipeBoxContent">
+                <p>
+                    {{recipe.description}}
+                </p>
+            </mat-card-content>
+        </mat-card>  
+
+    </div >
+</div>
+

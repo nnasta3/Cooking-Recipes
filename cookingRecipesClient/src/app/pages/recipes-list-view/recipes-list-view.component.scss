@@ -1,0 +1,69 @@
+.toolbar{
+    height: 125px;
+}
+
+.title{
+    color:white;
+}
+
+#searchBarDiv{
+    margin-top: 20px;
+    font-size: x-large;
+    width:600px;
+}
+
+.searchForm{
+    align-self: center;
+    color:#7e7d7d;
+    width:800px;
+}
+
+.searchButtonDiv{
+    align-self: center;
+}
+
+.searchButton{
+    font-size:x-large;
+    margin-bottom: 20px;
+}
+
+.recipeBox{
+    align-items: center;
+    max-width: 340px;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.mat-card-content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.mat-card-content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.recipeImage{
+    text-align: center;
+}
+
+.recipeBoxContent{
+    text-align: left;
+    text-overflow: ellipsis;
+}
+
+.recipeBoxList{
+    padding-top: 20px;
+    padding-left: 5%;
+    align-items: center;
+}
+
+.mat-card:active{
+    background-color: lightgray;
+}
+
+.mat-card:hover{
+    cursor:pointer;
+    color: #DDD;
+}

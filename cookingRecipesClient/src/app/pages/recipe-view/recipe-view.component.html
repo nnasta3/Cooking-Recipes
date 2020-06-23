@@ -1,0 +1,70 @@
+<div>
+    <mat-toolbar class="toolbar" color="primary"><a [routerLink]="['']" class="title">Cooking Recipes.com</a></mat-toolbar>
+</div>
+
+<div class="recipeTitle">
+    <mat-toolbar color="primary">{{recipe.name}}, Cook Time {{recipe.time}} Minutes</mat-toolbar>
+</div>     
+ 
+
+<div fxLayout="row wrap" class="recipeStepsView" fxLayoutGap="10px grid" fxLayoutAlign="center center" >
+
+    <mat-vertical-stepper [linear]="false" #stepper  style="max-width:900px;">
+        <ng-template matStepperIcon="last">
+            <mat-icon>done_all</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+            <mat-icon>bubble_chart</mat-icon>
+        </ng-template>
+
+        <mat-step label="Start">
+            <p class="stepText">
+                {{recipe.description}}
+            </p>
+            <div>
+                <button mat-button matStepperNext class="stepText">Start!</button>
+            </div>
+        </mat-step>
+
+        <mat-step *ngFor="let step of recipe.steps; let i = index" label="Step {{i+1}}  {{recipe.steps[i].title}}">
+            
+            <div *ngFor="let stepStuff of recipe.steps[i].stepInfo; let i = index">
+                <p class="stepText">
+                    {{stepStuff.text}}
+                </p>
+                <div>
+                    <youtube-player
+                        videoId="{{stepStuff.videoId}}"
+                        suggestedQuality="highres"
+                        [height]="500"
+                        [width]="600">
+                    </youtube-player>
+                </div>
+                
+                <p class="stepText">
+                    <img src={{stepStuff.imageUrl}} class="images">
+                </p>
+                <p class="stepText">
+                    {{stepStuff.image}}
+                </p>
+            </div>
+            
+
+            <div>
+                <button mat-button matStepperPrevious *ngIf="i>0" class="stepText">Back</button>
+                <button mat-button matStepperNext class="stepText">Next</button>
+        </div>
+        </mat-step>
+
+        <mat-step label="Done" state="last" >
+            <p class="stepText">
+                You are now done.
+            </p>
+            <div>
+                <button mat-button matStepperPrevious class="stepText">Back</button>
+                <button mat-button (click)="stepper.reset()" class="stepText">Reset</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+   
+</div>

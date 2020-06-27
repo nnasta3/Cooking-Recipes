@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input  } from '@angular/core';
 import {Recipe, Step, Steps} from '../../recipe';
-import { RecipeListService } from 'src/app/recipe-list.service';
+import { RecipeService } from 'src/app/services/recipe.service';
 import { Router } from '@angular/router';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
@@ -27,7 +27,7 @@ export class RecipeViewComponent implements OnInit {
   step: Step[];
 
   constructor(
-    private RecipeListService: RecipeListService,
+    private RecipeService: RecipeService,
     private router: Router,
   ) { }
 
@@ -38,8 +38,8 @@ export class RecipeViewComponent implements OnInit {
     document.body.appendChild(tag);
   }
 
-  getRecipe(){
-    this.RecipeListService.getRecipe(this.router.url).subscribe(recipe => this.recipe = recipe[0]);
+  getRecipe(){ 
+    this.RecipeService.getRecipe(this.router.url).subscribe(recipe => this.recipe = recipe[0]);
   }
 
 }

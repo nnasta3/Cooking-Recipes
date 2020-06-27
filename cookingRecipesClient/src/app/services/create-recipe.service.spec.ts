@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WebRequestService } from './web-request.service';
+import { CreateRecipeService } from './create-recipe.service';
 
-describe('WebRequestService', () => {
-  let service: WebRequestService;
+describe('CreateRecipeService', () => {
+  let service: CreateRecipeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(WebRequestService);
+    service = TestBed.inject(CreateRecipeService);
   });
 
   it('should be created', () => {

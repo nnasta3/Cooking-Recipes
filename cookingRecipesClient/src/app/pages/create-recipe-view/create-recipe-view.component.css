@@ -1,0 +1,12 @@
+.toolbar{
+    height: 125px;
+}
+
+.title{
+    color:white;
+}
+
+.createRecipeLayout{
+    padding-top: 20px;
+    text-align: center;
+}

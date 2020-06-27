@@ -5,7 +5,15 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+
 module.exports = {
+
+  createRecipe: async(req,res) => {
+    console.log(req.body);
+    await Recipe.create(req.body);
+    return res.ok();
+  },
+
   getRecipe: async (req,res) => {
     console.log(req.params.name);
     if(req.params.name){
@@ -23,6 +31,13 @@ module.exports = {
   getAllRecipes: async (req,res) => {
     let recipes = await Recipe.find();
 
+    return res.send(recipes);
+  },
+
+  getSearchedRecipes: async (req,res) => {
+    let recipes = await Recipe.find({
+      name:req.params.name,
+    });
     return res.send(recipes);
   }
 

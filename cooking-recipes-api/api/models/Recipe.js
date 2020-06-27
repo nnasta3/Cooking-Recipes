@@ -27,7 +27,12 @@ module.exports = {
 
     time:{
       type:'number'
+    },
+
+    image:{
+      type:'string'
     }
+    
   },
 
 };

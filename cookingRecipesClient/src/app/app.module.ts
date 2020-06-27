@@ -16,12 +16,17 @@ import { RecipeViewComponent } from './pages/recipe-view/recipe-view.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateRecipeViewComponent } from './pages/create-recipe-view/create-recipe-view.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesListViewComponent,
-    RecipeViewComponent
+    RecipeViewComponent,
+    CreateRecipeViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,9 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     MatStepperModule,
     MatIconModule,
     YouTubePlayerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

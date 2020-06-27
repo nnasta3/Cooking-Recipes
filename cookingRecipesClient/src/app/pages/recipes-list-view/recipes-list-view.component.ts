@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeListService } from 'src/app/recipe-list.service';
+import { RecipeListService } from 'src/app/services/recipe-list.service';
 import {Recipe} from '../../recipe';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 //import { SendRecipeService } from '../../send-recipe.service';
 
 
 @Component({
   selector: 'app-recipes-list-view',
   templateUrl: './recipes-list-view.component.html',
-  styleUrls: ['./recipes-list-view.component.scss']
+  styleUrls: ['./recipes-list-view.component.scss'],
 })
 export class RecipesListViewComponent implements OnInit {
 
   recipes: Recipe[];
   selectedRecipe: Recipe;
-  search = new FormControl('');
+  form = new FormControl('');
+
   constructor(
     private RecipeListService: RecipeListService,
     //private SendRecipeServive: SendRecipeService
@@ -24,7 +25,6 @@ export class RecipesListViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRecipes();
-    
   }
 
   getRecipes(): void{
@@ -38,12 +38,15 @@ export class RecipesListViewComponent implements OnInit {
     //this.SendRecipeServive.sendRecipe(recipe);
   }
 
-  searchQuery(name:string): void{
-    this.RecipeListService.getRecipe(name).subscribe(recipes => this.recipes = recipes);
-    if(this.recipes.length ==0 ){
-      this.recipes=[];
+  searchQuery(): void{
+    
+    if( this.form.value===""){
+      return;
     }
-    console.log(name);
+
+    this.RecipeListService.getSearchedRecipes(this.form.value).subscribe(recipes => this.recipes = recipes);
+    console.log(this.form.value);
+
   }
 
 }

@@ -1,35 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Recipe  } from './recipe';
+import { Recipe  } from '../recipe';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeListService {
-
-  Recipes: Recipe[];
+export class CreateRecipeService {
   private homeUrl = 'http://localhost:8081';
 
   constructor(
     public http: HttpClient,
   ) { }
 
-  getRecipes(): Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.homeUrl)
+  saveRecipe(payload:Recipe): Observable<Recipe>{
+    console.log("Payload is");
+    console.log(payload);
+    return this.http.post<Recipe>(this.homeUrl+'/createRecipe',payload)
     .pipe(
-      tap(_ => console.log('fetched recipes')),
-      catchError(this.handleError<Recipe[]>('getRecipes', []))
+      catchError(this.handleError<Recipe>('saveRecipe'))
     );
-  }
 
-  getRecipe(name:string): Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.homeUrl+name)
-    .pipe(
-      tap(_ => console.log('fetched recipe')),
-      catchError(this.handleError<Recipe[]>('getRecipe'))
-    );
   }
 
   private handleError<T>(operation = 'operation', result?: T){
@@ -40,6 +32,5 @@ export class RecipeListService {
       return of(result as T);
     };
   }
-
 
 }

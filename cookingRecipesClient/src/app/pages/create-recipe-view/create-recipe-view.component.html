@@ -5,6 +5,12 @@
     </mat-toolbar>   
 </div>
 
+<div class="header">
+    <div class="titleDiv">
+        <h1 class="createTitle"><b>Create A Recipe</b></h1>
+    </div>
+</div>
+
 <div fxLayout="row wrap" class="createRecipeLayout" fxLayoutAlign="center center" >
 
     <mat-accordion class="example-headers-align">
@@ -79,7 +85,7 @@
 
     <div *ngIf="generateSteps">
         <div *ngFor="let step of this.recipe.steps; let i = index">
-            <mat-expansion-panel   [expanded]="stepIndex === i+1" (opened)="setStepIndex(i+1)" [formGroup]="stepForm" >
+            <mat-expansion-panel   [expanded]="stepIndex === i+1" (opened)="setStepIndex(i+1)" [formGroup]="stepForms.at(i)" >
                 <mat-expansion-panel-header>
                 <mat-panel-title>
                     Step {{i+1}}
@@ -88,7 +94,7 @@
                 <mat-form-field style="width:400px" >
                     <mat-label>Step Title</mat-label>
                     <input matInput formControlName="stepTitle" required>
-                    <mat-error *ngIf="hasErrorStep('stepTitle', 'required')">Title is required</mat-error>
+                    <!--<mat-error *ngIf="hasErrorStep('stepTitle', 'required')">Title is required</mat-error>-->
                 </mat-form-field>
 
                 <div style="margin:10px">
@@ -100,7 +106,7 @@
                     </mat-label>
 
                     <input matInput type="number" formControlName="stepTime" required>
-                    <mat-error *ngIf="hasErrorStep('stepTime', 'required')">Time is required</mat-error>
+                    <!--<mat-error *ngIf="hasErrorStep('stepTime', 'required')">Time is required</mat-error>-->
                 </mat-form-field>
 
                 <div style="margin:10px">
@@ -112,7 +118,7 @@
                     </mat-label>
 
                     <textarea matInput  formControlName="stepDescription" required></textarea>
-                    <mat-error *ngIf="hasErrorStep('stepDescription', 'required')">Description Of Step is required</mat-error>
+                    <!--<mat-error *ngIf="hasErrorStep('stepDescription', 'required')">Description Of Step is required</mat-error>-->
                 </mat-form-field>
 
                 <div style="margin:10px">
@@ -136,7 +142,7 @@
                     <button mat-button color="warn" a routerLink="/" routerLinkActive="active" >Cancel</button>
                     <button mat-button color="warn" (click)="prevStep()" >Previous</button>
                     <button mat-button color="primary" (click)="nextStep()" *ngIf="stepIndex !== this.recipeForm.value.numberOfSteps">Next</button>
-                    <button mat-button color="primary" (click)="publish()" *ngIf="stepIndex === this.recipeForm.value.numberOfSteps">Publish</button>
+                    <button mat-button color="primary" (click)="publish()" *ngIf="stepIndex === this.recipeForm.value.numberOfSteps"  routerLink="/" routerLinkActive="active">Publish</button>
                 </mat-action-row>
             </mat-expansion-panel>
         </div>      

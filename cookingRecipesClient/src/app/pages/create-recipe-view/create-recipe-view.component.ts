@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Recipe } from '../../recipe';
 import { Step } from '../../recipe';
 import { Steps } from '../../recipe';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { CreateRecipeService } from '../../services/create-recipe.service';
 
 @Component({
@@ -20,13 +20,7 @@ export class CreateRecipeViewComponent implements OnInit {
     numberOfSteps: new FormControl('',[Validators.required])
   });
 
-  stepForm = new FormGroup({
-    stepTitle: new FormControl('',[Validators.required]),
-    stepTime: new FormControl('',[Validators.required]),
-    stepImage: new FormControl(''),
-    stepVideo: new FormControl(''),
-    stepDescription: new FormControl('',[Validators.required])
-  });
+  stepForms = new FormArray([]);
 
   constructor(
     private CreateRecipeService: CreateRecipeService,
@@ -37,7 +31,8 @@ export class CreateRecipeViewComponent implements OnInit {
   recipe: Recipe = {};
   steps: Steps = {};
   step: Step = {};
-
+  videoString:string;
+  newString:string;
 
   ngOnInit(): void {
   }
@@ -56,34 +51,31 @@ export class CreateRecipeViewComponent implements OnInit {
     return this.recipeForm.controls[controlName].hasError(errorName);
   }
 
-  public hasErrorStep= (controlName: string, errorName: string) =>{
-    return this.stepForm.controls[controlName].hasError(errorName);
-  }
-
   nextStep() {
-    if(this.stepForm.valid){
+    if(this.stepForms.at(this.stepIndex-1).valid){
       console.log("step Is valid");
-      this.recipe.steps[this.stepIndex-1].title = this.stepForm.value.stepTitle;
-      this.recipe.steps[this.stepIndex-1].time = this.stepForm.value.stepTime;
-      this.recipe.steps[this.stepIndex-1].stepInfo[0].imageUrl = this.stepForm.value.stepImage;
-      this.recipe.steps[this.stepIndex-1].stepInfo[0].text = this.stepForm.value.stepDescription;
-
+      this.recipe.steps[this.stepIndex-1].title = this.stepForms.at(this.stepIndex-1).value.stepTitle;
+      this.recipe.steps[this.stepIndex-1].time = this.stepForms.at(this.stepIndex-1).value.stepTime;
+      this.recipe.steps[this.stepIndex-1].stepInfo[0].imageUrl = this.stepForms.at(this.stepIndex-1).value.stepImage;
+      this.recipe.steps[this.stepIndex-1].stepInfo[0].text = this.stepForms.at(this.stepIndex-1).value.stepDescription;
+      console.log(this.stepForms.at(this.stepIndex-1));
+      console.log(this.recipe);
+      console.log(this.stepForms);
       //Slice the video url to just get the v= tag
-      let videoString = this.stepForm.value.stepVideo;
-      let vIndex = videoString.indexOf("=");
+      this.videoString = this.stepForms.at(this.stepIndex-1).value.stepVideo;
+      console.log(this.stepForms.at(this.stepIndex-1).value.stepVideo);
+      let vIndex = this.videoString.indexOf("=");
       let endIndex = 0;
-      for(let i=vIndex;i<videoString.length  ;i++){
-          if(videoString.charAt(i)==='&'){
+      for(let i=vIndex;i<this.videoString.length  ;i++){
+          if(this.videoString.charAt(i)==='&'){
             endIndex = i;
           }
           else{
-            endIndex = videoString.length;
+            endIndex = this.videoString.length;
           }
       }
-      let newString = videoString.substring(vIndex+1,endIndex);
-      console.log(newString);
-      this.recipe.steps[this.stepIndex-1].stepInfo[0].videoId = newString;
-
+      this.newString = this.videoString.substring(vIndex+1,endIndex);
+      this.recipe.steps[this.stepIndex-1].stepInfo[0].videoId = this.newString;
       this.stepIndex++;
     }
   }
@@ -98,6 +90,15 @@ export class CreateRecipeViewComponent implements OnInit {
       this.recipe.steps = [{time:this.steps.time, title:this.steps.title, stepInfo:this.steps.stepInfo = [{imageUrl:this.step.imageUrl,text:this.step.text, videoId:this.step.videoId}]}];
       for(let i =1;i<this.recipeForm.value.numberOfSteps;i++){
         this.recipe.steps.push({time:this.steps.time, title:this.steps.title, stepInfo:this.steps.stepInfo = [{imageUrl:this.step.imageUrl,text:this.step.text, videoId:this.step.videoId}]});
+        let stepForm = new FormGroup({
+          stepTitle: new FormControl('',[Validators.required]),
+          stepTime: new FormControl('',[Validators.required]),
+          stepImage: new FormControl(''),
+          stepVideo: new FormControl(''),
+          stepDescription: new FormControl('',[Validators.required])
+        });
+        this.stepForms.push(stepForm);
+        console.log(this.stepForms);
       }
       if(this.generateSteps ===true){
         this.stepIndex++;

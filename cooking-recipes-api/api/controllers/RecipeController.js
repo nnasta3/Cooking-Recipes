@@ -15,13 +15,13 @@ module.exports = {
   },
 
   getRecipe: async (req,res) => {
-    console.log(req.params.name);
+    console.log(req.params);
     if(req.params.name){
       let recipes = await Recipe.find({
         name:req.params.name,
         description:req.params.description,
         steps:req.params.steps,
-        user_id:req.params.user_id
+        id:req.params.id
       });
       console.log(recipes);
       return res.send(recipes);

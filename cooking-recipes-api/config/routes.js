@@ -21,7 +21,7 @@ module.exports.routes = {
 
   // '/': { view: 'pages/homepage' },
   '/': { controller: 'RecipeController', action: 'getAllRecipes' },
-  '/recipe/:name': { controller: 'RecipeController', action: 'getRecipe'},
+  '/recipe/:name/:id': { controller: 'RecipeController', action: 'getRecipe'},
   '/search=:name':{ controller: 'RecipeController', action: 'getSearchedRecipes'},
   '/createRecipe': {controller: 'RecipeController', action: 'createRecipe'}
 

@@ -1,54 +1,56 @@
-<div>
-    <mat-toolbar class="toolbar" color="primary">
-        <a routerLink="/" routerLinkActive="active" class="title">Cooking Recipes.com</a>
-        
+<div class="searchStuff">
+    <div>
+        <mat-toolbar class="toolbar" color="primary">
+        <a class="title" (click)="refreshPage()">Cooking Recipes.com</a>       
     </mat-toolbar>
     
+    </div>
+
+    <div id="searchBarDiv"  class="container" fxLayout="row"
+        fxLayout.xs="column"
+        fxLayout.sm="column"
+        fxLayout.md="column"
+        fxLayoutAlign="center"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="0">
+        <mat-form-field class="searchForm" >
+            <mat-label>Search for a recipe</mat-label>
+            <input matInput placeholder="Ex. Pizza" [formControl]="form">
+        </mat-form-field>
+
+        <div class="searchButtonDiv">
+            <button mat-raised-button color="primary" class="searchButton" (click)="searchQuery()">Search</button>
+        </div> 
+    </div>
+
+    <div id="searchBarDiv"  class="container" fxLayout.xs="column"
+        fxLayout.sm="column"
+        fxLayout.md="column"
+        fxLayoutAlign="center"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="0">
+        <span style="color:white;">
+            Or
+        </span>
+    </div>
+
+    <div id="searchBarDiv"  class="container" fxLayout.xs="column"
+        fxLayout.sm="column"
+        fxLayout.md="column"
+        fxLayoutAlign="center"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="0">
+        <button mat-raised-button color="primary" class="searchButton" routerLink="/createRecipe" routerLinkActive="active">Create A Recipe</button>
+    </div>
 </div>
 
-<div id="searchBarDiv"  class="container" fxLayout="row"
-     fxLayout.xs="column"
-     fxLayout.sm="column"
-     fxLayout.md="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="20px"
-     fxLayoutGap.xs="0">
-    <mat-form-field class="searchForm" >
-        <mat-label>Search for a recipe</mat-label>
-        <input matInput placeholder="Ex. Pizza" [formControl]="form">
-    </mat-form-field>
-
-    <div class="searchButtonDiv">
-        <button mat-raised-button color="primary" class="searchButton" (click)="searchQuery()">Search</button>
-    </div> 
-</div>
-
-<div id="searchBarDiv"  class="container" fxLayout.xs="column"
-     fxLayout.sm="column"
-     fxLayout.md="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="20px"
-     fxLayoutGap.xs="0">
-    <span>
-        Or
-    </span>
-</div>
-
-<div id="searchBarDiv"  class="container" fxLayout.xs="column"
-     fxLayout.sm="column"
-     fxLayout.md="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="20px"
-     fxLayoutGap.xs="0">
-    <button mat-raised-button color="primary" class="searchButton" routerLink="/createRecipe" routerLinkActive="active">Create A Recipe</button>
-</div>
 
 <div fxLayout="row wrap" class="recipeBoxList" fxLayoutGap="10px grid">
 
     
     
     <div class="recipeBox" fxFlex="1 0 auto" *ngFor="let recipe of recipes" style="width:340px; height:400px;">
-        <mat-card class="recipeImage" routerLink="/recipe/{{recipe.name}}" routerLinkActive="active" (click)="onSelect(recipe)" [class.selected]="recipe === selectedRecipe" >
+        <mat-card class="recipeImage" routerLink="/recipe/{{recipe.name}}" routerLinkActive="active" routerLink="/recipe/{{recipe.name}}/{{recipe.id}}" routerLinkActive="active" [class.selected]="recipe === selectedRecipe" >
             
             <mat-card-header>
                 <mat-card-title class="recipeBoxContent">{{recipe.name}}</mat-card-title>

@@ -2,12 +2,16 @@
     <mat-toolbar class="toolbar" color="primary"><a [routerLink]="['']" class="title">Cooking Recipes.com</a></mat-toolbar>
 </div>
 
-<div class="recipeTitle">
-    <mat-toolbar color="primary">{{recipe.name}}, Cook Time {{recipe.time}} Minutes</mat-toolbar>
-</div>     
- 
+<div class="header">
+    <div class="titleDiv">
+        <h1 class="recipeTitle"><b>{{recipe.name}}, Cook Time {{recipe.time}} Minutes</b></h1>
+    </div>
+</div>
+
+   
 
 <div fxLayout="row wrap" class="recipeStepsView" fxLayoutGap="10px grid" fxLayoutAlign="center center" >
+     
 
     <mat-vertical-stepper [linear]="false" #stepper  style="max-width:900px;">
         <ng-template matStepperIcon="last">
@@ -22,7 +26,7 @@
                 {{recipe.description}}
             </p>
             <div>
-                <button mat-button matStepperNext class="stepText">Start!</button>
+                <button mat-button style="margin:20px;" matStepperNext class="stepText">Start!</button>
             </div>
         </mat-step>
 
@@ -37,7 +41,7 @@
                         videoId="{{stepStuff.videoId}}"
                         suggestedQuality="highres"
                         [height]="500"
-                        [width]="600">
+                        [width]="600" class="images">
                     </youtube-player>
                 </div>
                 
@@ -51,8 +55,8 @@
             
 
             <div>
-                <button mat-button matStepperPrevious *ngIf="i>0" class="stepText">Back</button>
-                <button mat-button matStepperNext class="stepText">Next</button>
+                <button mat-button style="margin:20px;" matStepperPrevious *ngIf="i>0" class="stepText">Back</button>
+                <button mat-button style="margin:20px;" matStepperNext class="stepText">Next</button>
         </div>
         </mat-step>
 
@@ -61,10 +65,16 @@
                 You are now done.
             </p>
             <div>
-                <button mat-button matStepperPrevious class="stepText">Back</button>
-                <button mat-button (click)="stepper.reset()" class="stepText">Reset</button>
+                <button mat-button style="margin:20px;" matStepperPrevious class="stepText">Back</button>
+                <button mat-button style="margin:20px;" (click)="stepper.reset()" class="stepText">Reset</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>
-   
+
+
 </div>
+
+<div style="margin:200px;">
+
+</div>
+

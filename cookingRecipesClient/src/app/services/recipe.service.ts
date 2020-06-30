@@ -16,8 +16,8 @@ export class RecipeService {
     public http: HttpClient,
   ) { }
 
-  getRecipe(name:string): Observable<Recipe[]>{
-    return  this.http.get<Recipe[]>(this.homeUrl+name)
+  getRecipe(url:string): Observable<Recipe[]>{
+    return  this.http.get<Recipe[]>(this.homeUrl+url)
     .pipe(
       tap(_ => console.log('fetched recipe')),
       catchError(this.handleError<Recipe[]>('getRecipe'))

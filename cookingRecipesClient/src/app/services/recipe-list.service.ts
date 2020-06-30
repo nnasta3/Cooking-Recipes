@@ -24,8 +24,8 @@ export class RecipeListService {
     );
   }
 
-  getSearchedRecipes(name:string): Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.homeUrl+'/search='+name)
+  getSearchedRecipes(id:string): Observable<Recipe[]>{
+    return this.http.get<Recipe[]>(this.homeUrl+'/search='+id)
     .pipe(
       tap(_ => console.log('fetched recipes')),
       catchError(this.handleError<Recipe[]>('getRecipe'))

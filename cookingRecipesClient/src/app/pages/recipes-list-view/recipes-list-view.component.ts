@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeListService } from 'src/app/services/recipe-list.service';
 import {Recipe} from '../../recipe';
 import { FormControl, Validators } from '@angular/forms';
-//import { SendRecipeService } from '../../send-recipe.service';
+import { RecipeService } from '../../services/recipe.service';
+import {Router }from '@angular/router';
 
 
 @Component({
@@ -15,10 +16,12 @@ export class RecipesListViewComponent implements OnInit {
   recipes: Recipe[];
   selectedRecipe: Recipe;
   form = new FormControl('');
+  recipe: Recipe;
 
   constructor(
     private RecipeListService: RecipeListService,
-    //private SendRecipeServive: SendRecipeService
+    private RecipeService: RecipeService,
+    private router: Router,
   ) {
       
    }
@@ -35,7 +38,6 @@ export class RecipesListViewComponent implements OnInit {
   onSelect(recipe: Recipe): void{
     this.selectedRecipe = recipe;
     console.log(this.selectedRecipe);
-    //this.SendRecipeServive.sendRecipe(recipe);
   }
 
   searchQuery(): void{
@@ -47,6 +49,10 @@ export class RecipesListViewComponent implements OnInit {
     this.RecipeListService.getSearchedRecipes(this.form.value).subscribe(recipes => this.recipes = recipes);
     console.log(this.form.value);
 
+  }
+
+  refreshPage(){
+    window.location.reload();
   }
 
 }

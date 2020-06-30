@@ -10,7 +10,7 @@ const routes: Routes = [
     
   },
   {
-    path: 'recipe/:name', component: RecipeViewComponent
+    path: 'recipe/:name/:id', component: RecipeViewComponent
   },
   {
     path: 'createRecipe', component: CreateRecipeViewComponent
